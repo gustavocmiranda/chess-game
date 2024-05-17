@@ -1,7 +1,5 @@
 class Piece:
-    def __init__(self, x: int, y: int, white:bool) -> None:
-        self.x = x
-        self.y = y
+    def __init__(self, white:bool) -> None:
         self.white = white
     
     def move_allowed(self) -> bool:
