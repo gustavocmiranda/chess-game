@@ -1,48 +1,79 @@
 from player import Player
+from pieces.bishop import Bishop
+from board import Board
 
 # Example file showing a circle moving on screen
 import pygame
 
 # pygame setup
 pygame.init()
-screen = pygame.display.set_mode((568,568))
+screen = pygame.display.set_mode((568,568)) # 25,25 -> 545,545
+# cada quadrado tem 65 px, 
 clock = pygame.time.Clock()
 running = True
-dt = 0
-board = pygame.image.load('./assets/board_plain_05.png')
+
+board_img = pygame.image.load('./assets/board_plain_05.png')
+board = Board()
 
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+all_sprites_list = pygame.sprite.Group() 
 
+for row in range(8):
+    for column in range(8):
+        if board.display[row][column] != 0:
+            board.display[row][column].rect.x = (column+1)*60
+            board.display[row][column].rect.y = (row+1)*50
+            all_sprites_list.add(board.display[row][column])
+
+def detect_collision(x,y):
+    for sprite in all_sprites_list:
+        if x >= sprite.rect.x and x <= (sprite.rect.x + sprite.rect.width):
+            if y >= sprite.rect.y and y <= (sprite.rect.y + sprite.rect.height):
+                print('hit') 
+                return sprite
+
+def change_positions(sprite1, sprite2):
+    print('start change')
+    tempx = sprite1.rect.x
+    tempy = sprite1.rect.y
+    sprite1.rect.x = sprite2.rect.x
+    sprite1.rect.y = sprite2.rect.y
+    sprite2.rect.x = tempx
+    sprite2.rect.y = tempy
+    print('changed')
+
+
+
+selected = False
 while running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
     for event in pygame.event.get():
+        if event.type == pygame.MOUSEBUTTONDOWN and selected == False:
+            x, y = pygame.mouse.get_pos()
+            selected_sprite = detect_collision(x,y)  
+            if selected_sprite is not None:
+                selected = True
+        elif event.type == pygame.MOUSEBUTTONDOWN and selected == True:
+            x, y = pygame.mouse.get_pos()
+            selected_second_sprite = detect_collision(x,y)
+            if selected_second_sprite is not None:
+                change_positions(selected_sprite, selected_second_sprite) 
+                selected = False
         if event.type == pygame.QUIT:
             running = False
 
-    # fill the screen with a color to wipe away anything from last frame
-    screen.fill("white")
+    screen.blit(board_img, (0,0))
 
-    screen.blit(board, (0,0))
-    #pygame.draw.circle(screen, "red", player_pos, 40)
+    all_sprites_list.update() 
+    all_sprites_list.draw(screen) 
 
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_w]:
-        player_pos.y -= 300 * dt
-    if keys[pygame.K_s]:
-        player_pos.y += 300 * dt
-    if keys[pygame.K_a]:
-        player_pos.x -= 300 * dt
-    if keys[pygame.K_d]:
-        player_pos.x += 300 * dt
+
+    x, y = pygame.mouse.get_pos()
+    #print(x,y)
 
     # flip() the display to put your work on screen
     pygame.display.flip()
-
-    # limits FPS to 60
-    # dt is delta time in seconds since last frame, used for framerate-
-    # independent physics.
-    dt = clock.tick(60) / 1000
 
 pygame.quit()
 

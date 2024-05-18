@@ -1,4 +1,5 @@
-class Piece:
+import pygame
+class Piece(pygame.sprite.Sprite):
     def __init__(self, white:bool) -> None:
         self.white = white
     
