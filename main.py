@@ -29,8 +29,11 @@ def detect_collision(x,y):
     for sprite in all_sprites_list:
         if x >= sprite.rect.x and x <= (sprite.rect.x + sprite.rect.width):
             if y >= sprite.rect.y and y <= (sprite.rect.y + sprite.rect.height):
-                print('hit') 
-                return sprite
+                if sprite.white == False:
+                    print('hit') 
+                    return sprite
+                else:
+                    print('not black')
 
 def change_positions(sprite1, sprite2):
     print('start change')
@@ -43,7 +46,7 @@ def change_positions(sprite1, sprite2):
     print('changed')
 
 
-
+player1_turn = True
 selected = False
 while running:
     # poll for events
@@ -60,7 +63,7 @@ while running:
             if selected_second_sprite is not None:
                 change_positions(selected_sprite, selected_second_sprite) 
                 selected = False
-        if event.type == pygame.QUIT:
+        elif event.type == pygame.QUIT:
             running = False
 
     screen.blit(board_img, (0,0))
