@@ -6,9 +6,9 @@ class Bishop (Piece) :
         pygame.sprite.Sprite.__init__(self)
         super().__init__(white)
         if white == True:
-            self.image = pygame.image.load('./assets/W_Bishop.png')
+            self.image = pygame.image.load('assets\Piece=Bishop, Side=White.png')
         else:
-            self.image = pygame.image.load('./assets/B_Bishop.png')
+            self.image = pygame.image.load('assets\Piece=Bishop, Side=Black.png')
         
         self.rect = self.image.get_rect() 
 

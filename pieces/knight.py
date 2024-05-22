@@ -7,9 +7,9 @@ class Knight (Piece) :
         super().__init__(white)
 
         if white == True:
-            self.image = pygame.image.load('./assets/W_Knight.png')
+            self.image = pygame.image.load('assets\Piece=Knight, Side=White.png')
         else:
-            self.image = pygame.image.load('./assets/B_Knight.png')
+            self.image = pygame.image.load('assets\Piece=Knight, Side=Black.png')
         
         self.rect = self.image.get_rect()
 

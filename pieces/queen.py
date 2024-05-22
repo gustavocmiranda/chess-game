@@ -7,9 +7,9 @@ class Queen (Piece) :
         super().__init__(white)
 
         if white == True:
-            self.image = pygame.image.load('./assets/W_Queen.png')
+            self.image = pygame.image.load('assets\Piece=Queen, Side=White.png')
         else:
-            self.image = pygame.image.load('./assets/B_Queen.png')
+            self.image = pygame.image.load('assets\Piece=Queen, Side=Black.png')
         
         self.rect = self.image.get_rect()
 

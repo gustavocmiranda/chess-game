@@ -7,13 +7,22 @@ class Pawn (Piece) :
         super().__init__(white)
 
         if white == True:
-            self.image = pygame.image.load('./assets/W_Pawn.png')
+            self.image = pygame.image.load('assets\Piece=Pawn, Side=White.png')
         else:
-            self.image = pygame.image.load('./assets/B_Pawn.png')
+            self.image = pygame.image.load('assets\Piece=Pawn, Side=Black.png')
         
         self.rect = self.image.get_rect()
 
-    def move(self):
-        # if white -> y should move up,
-        # if not white -> y should move down
-        pass
+    def move_allowed(self, x,y) -> bool:
+        if self.white == True:
+            if (self.x == x) and (self.y - y == 1): 
+                return True
+            else:
+                return False
+        else:
+            return False
+        return super().move_allowed()
+    
+    def move(self, x, y) -> None:
+        
+        return super().move()

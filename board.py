@@ -15,4 +15,10 @@ class Board:
                         [Invisible(), Invisible(), Invisible(), Invisible(), Invisible(), Invisible(), Invisible(), Invisible()],
                         [Invisible(), Invisible(), Invisible(), Invisible(), Invisible(), Invisible(), Invisible(), Invisible()],
                         [Pawn(white=True), Pawn(white=True), Pawn(white=True), Pawn(white=True), Pawn(white=True), Pawn(white=True), Pawn(white=True), Pawn(white=True)],
-                        [Rook(white=True), Knight(white=True), Bishop(white=True), King(white=True), Queen(white=True), Bishop(white=True), Knight(white=True), Rook(white=True)],]
+                        [Rook(white=True), Knight(white=True), Bishop(white=True), Queen(white=True), King(white=True), Bishop(white=True), Knight(white=True), Rook(white=True)],]
+        
+    def setx_sety(self) -> None:
+        for row in range(8):
+            for column in range(8):
+                self.display[row][column].x = column+1
+                self.display[row][column].y = row+1

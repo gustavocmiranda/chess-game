@@ -7,9 +7,9 @@ class Rook (Piece) :
         super().__init__(white)
 
         if white == True:
-            self.image = pygame.image.load('./assets/W_Rook.png')
+            self.image = pygame.image.load('assets\Piece=Rook, Side=White.png')
         else:
-            self.image = pygame.image.load('./assets/B_Rook.png')
+            self.image = pygame.image.load('assets\Piece=Rook, Side=Black.png')
         
         self.rect = self.image.get_rect()
 
