@@ -13,5 +13,10 @@ class Knight (Piece) :
         
         self.rect = self.image.get_rect()
 
+    def move_allowed(self, x, y) -> bool:
+        if (abs(self.x - x) != abs(self.y - y)) and (abs(self.x - x) in [1,2]) and (abs(self.y - y) in [1,2]):
+            return True
+        return False
+
     def move(self):
         pass

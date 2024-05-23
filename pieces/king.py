@@ -13,6 +13,11 @@ class King (Piece) :
         
         self.rect = self.image.get_rect()
 
+    def move_allowed(self, x, y) -> bool:
+        if abs(self.x - x) <= 1 and abs(self.y - y) <= 1:
+            return True
+        return False
+
     def move(self):
         pass
 

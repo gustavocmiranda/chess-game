@@ -18,13 +18,7 @@ board = Board()
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 all_sprites_list = pygame.sprite.Group() 
 
-for row in range(8):
-    for column in range(8):
-        board.display[row][column].rect.x = (column)*68.5+8
-        board.display[row][column].rect.y = (row)*72+7
-        all_sprites_list.add(board.display[row][column])
-
-board.setx_sety()
+board.allocate_sprites(all_sprites_list)
 
 def select_piece(x,y, white_moves):
     for sprite in all_sprites_list:
@@ -51,6 +45,10 @@ def select_second_piece(x,y, white_moves):
                     print('not your turn')
 
 def change_positions(sprite1, sprite2):
+    # changing logical position
+    sprite1.x, sprite2.x = sprite2.x, sprite1.x
+    sprite1.y, sprite2.y = sprite2.y, sprite1.y
+    # changing drawing position
     sprite1.rect.x, sprite2.rect.x = sprite2.rect.x, sprite1.rect.x
     sprite1.rect.y, sprite2.rect.y = sprite2.rect.y, sprite1.rect.y
     print('changed')
@@ -77,7 +75,7 @@ while running:
                 if move_allowed:
                     change_positions(selected_sprite, selected_second_sprite) 
                     selected = False
-                    #whites_turn = not whites_turn
+                    whites_turn = not whites_turn
         
 
     screen.blit(board_img, (0,0))
@@ -86,7 +84,7 @@ while running:
     all_sprites_list.draw(screen) 
 
 
-    x, y = pygame.mouse.get_pos()
+    #x, y = pygame.mouse.get_pos()
     #print(x,y)
 
     # flip() the display to put your work on screen

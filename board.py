@@ -17,8 +17,12 @@ class Board:
                         [Pawn(white=True), Pawn(white=True), Pawn(white=True), Pawn(white=True), Pawn(white=True), Pawn(white=True), Pawn(white=True), Pawn(white=True)],
                         [Rook(white=True), Knight(white=True), Bishop(white=True), Queen(white=True), King(white=True), Bishop(white=True), Knight(white=True), Rook(white=True)],]
         
-    def setx_sety(self) -> None:
+
+    def allocate_sprites(self, sprites_list):
         for row in range(8):
             for column in range(8):
+                self.display[row][column].rect.x = (column)*68.5+8
+                self.display[row][column].rect.y = (row)*72+7
                 self.display[row][column].x = column+1
                 self.display[row][column].y = row+1
+                sprites_list.add(self.display[row][column])

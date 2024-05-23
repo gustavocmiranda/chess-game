@@ -5,7 +5,7 @@ class Piece(pygame.sprite.Sprite):
         self.x = 0
         self.y = 0
     
-    def move_allowed(self) -> bool:
+    def move_allowed(self, x, y) -> bool:
         # check if this piece's king is going to get checked when this piece is moved
         # if it is -> false (move not allowed)
         # if it is not -> true (move is allowed)

@@ -12,5 +12,11 @@ class Bishop (Piece) :
         
         self.rect = self.image.get_rect() 
 
+
+    def move_allowed(self, x, y) -> bool:
+        if abs(self.x - x) == abs(self.y - y):
+            return True
+        return False
+    
     def move(self):
         pass

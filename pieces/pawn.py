@@ -14,14 +14,17 @@ class Pawn (Piece) :
         self.rect = self.image.get_rect()
 
     def move_allowed(self, x,y) -> bool:
+        # first move can be a 2 spaces move
         if self.white == True:
             if (self.x == x) and (self.y - y == 1): 
                 return True
             else:
                 return False
         else:
-            return False
-        return super().move_allowed()
+            if (self.x == x) and (y - self.y == 1): 
+                return True
+            else:
+                return False
     
     def move(self, x, y) -> None:
         

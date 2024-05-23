@@ -13,5 +13,13 @@ class Queen (Piece) :
         
         self.rect = self.image.get_rect()
 
+    def move_allowed(self, x, y) -> bool:
+        if abs(self.x - x) == abs(self.y - y):
+            return True
+        else:
+            if self.x == x or self.y == y:
+                return True
+        return False
+
     def move(self):
         pass
