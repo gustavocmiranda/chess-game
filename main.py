@@ -1,5 +1,3 @@
-from player import Player
-from pieces.bishop import Bishop
 from board import Board
 
 # Example file showing a circle moving on screen
@@ -26,25 +24,27 @@ def select_piece(x,y, white_moves):
             if y >= sprite.rect.y and y <= (sprite.rect.y + sprite.rect.height):
                 if sprite.white == white_moves:
                     #print('hit')
-                    print(sprite.x)
-                    print(sprite.y)
+                    #print(sprite.x)
+                    #print(sprite.y)
+                    #print(type(sprite))
                     return sprite
                 else:
                     print('not your turn')
 
-def select_second_piece(x,y, white_moves):
+def select_second_piece(x,y):
     for sprite in all_sprites_list:
         if x >= sprite.rect.x and x <= (sprite.rect.x + sprite.rect.width):
             if y >= sprite.rect.y and y <= (sprite.rect.y + sprite.rect.height):
-                if sprite.white != (not white_moves):
-                    """ print('hit')
-                    print(sprite.x)
-                    print(sprite.y) """
-                    return sprite
-                else:
-                    print('not your turn')
+                """ print('hit')
+                print(sprite.x)
+                print(sprite.y) """
+                #print(type(sprite))
+                return sprite
 
-def change_positions(sprite1, sprite2):
+def move_piece(sprite1, sprite2):
+    #board.print_display()
+    board.change_pieces(sprite1, sprite2)
+    #board.print_display()
     # changing logical position
     sprite1.x, sprite2.x = sprite2.x, sprite1.x
     sprite1.y, sprite2.y = sprite2.y, sprite1.y
@@ -53,6 +53,13 @@ def change_positions(sprite1, sprite2):
     sprite1.rect.y, sprite2.rect.y = sprite2.rect.y, sprite1.rect.y
     print('changed')
 
+def capture(sprite1, sprite2, sprites_list):
+    board.create_new_empty(sprite1.x, sprite1.y, sprite1.rect.x, sprite1.rect.y, sprites_list)
+    sprite1.rect.x = sprite2.rect.x
+    sprite1.rect.y = sprite2.rect.y
+    sprite1.x = sprite2.x
+    sprite1.y = sprite2.y
+    sprite2.kill()
 
 whites_turn = True
 selected = False
@@ -69,13 +76,19 @@ while running:
                 selected = True
         elif event.type == pygame.MOUSEBUTTONDOWN and selected == True:
             x, y = pygame.mouse.get_pos()
-            selected_second_sprite = select_second_piece(x,y, whites_turn)
-            if selected_second_sprite is not None:
-                move_allowed = selected_sprite.move_allowed(selected_second_sprite.x, selected_second_sprite.y)
-                if move_allowed:
-                    change_positions(selected_sprite, selected_second_sprite) 
+            selected_second_sprite = select_second_piece(x,y)
+            if selected_sprite == selected_second_sprite: # player wants to select another piece to move/capture with
+                selected = False
+            elif selected_second_sprite is not None: # if not clicked 'outside' board
+                if selected_sprite.move_allowed(selected_second_sprite.x, selected_second_sprite.y): # move allowed (need to check more conditions)
+                    if selected_second_sprite.white == None: # moving to an empty space
+                        move_piece(selected_sprite, selected_second_sprite) 
+                    elif selected_second_sprite.white == (not whites_turn): # capturing
+                        capture(selected_sprite, selected_second_sprite, all_sprites_list)
+                    elif selected_second_sprite.white == whites_turn:
+                        continue
                     selected = False
-                    whites_turn = not whites_turn
+                    whites_turn = not whites_turn 
         
 
     screen.blit(board_img, (0,0))
