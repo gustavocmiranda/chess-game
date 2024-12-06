@@ -8,7 +8,7 @@ from pieces.invi import Invisible
 
 class Board:
     def __init__(self) -> None:
-        self.display = [[Rook(white=False), Knight(white=False), Bishop(white=False), Queen(white=False), King(white=False), Bishop(white=False), Knight(white=False), Rook(white=False)],
+        self.display = [[Rook(white=False), Knight(white=False), Bishop(white=False), King(white=False), Queen(white=False), Bishop(white=False), Knight(white=False), Rook(white=False)],
                         [Pawn(white=False), Pawn(white=False), Pawn(white=False), Pawn(white=False), Pawn(white=False), Pawn(white=False), Pawn(white=False), Pawn(white=False)],
                         [Invisible(), Invisible(), Invisible(), Invisible(), Invisible(), Invisible(), Invisible(), Invisible()],
                         [Invisible(), Invisible(), Invisible(), Invisible(), Invisible(), Invisible(), Invisible(), Invisible()],
